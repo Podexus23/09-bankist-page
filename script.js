@@ -87,5 +87,36 @@ const handleHover = function (e) {
 };
 
 nav.addEventListener('mouseover', handleHover.bind(0.5));
-
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+// Sticky nav
+// const initialCords = section1.getBoundingClientRect();
+// const obsFunction = (entries, observer) => {
+//   console.log(entries[0]);
+//   if (entries[0].isIntersecting) {
+//     // nav.classList.add('sticky');
+//   } else {
+//     nav.classList.remove('sticky');
+//   }
+// };
+// const obsOption = { root: null, threshold: [0, 0.2] };
+// const section1Observer = new IntersectionObserver(obsFunction, obsOption);
+
+// section1Observer.observe(section1);
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+const stickyNav = entries => {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+
+headerObserver.observe(header);
