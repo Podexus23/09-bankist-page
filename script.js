@@ -52,3 +52,22 @@ navLinksEl.addEventListener('click', e => {
   const id = e.target.getAttribute('href');
   document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
 });
+
+//Tab component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', e => {
+  const clicked = e.target.closest('.operations__tab');
+  if (!clicked) return;
+
+  const tabNum = clicked.dataset.tab;
+
+  tabs.forEach(e => e.classList.remove('operations__tab--active'));
+  clicked.classList.add('operations__tab--active');
+  tabsContent.forEach(e => e.classList.remove('operations__content--active'));
+  document
+    .querySelector(`.operations__content--${tabNum}`)
+    .classList.add('operations__content--active');
+});
